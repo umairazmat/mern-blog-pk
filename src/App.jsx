@@ -1,15 +1,9 @@
-import React from "react";
 import "./App.css";
-import BlogCard from "./components/BlogCard";
+import React from "react";
+import Routers from "./router/Routers";
 
 function App() {
-  return (
-    <>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      <BlogCard />
-      <BlogCard />
-    </>
-  );
+  return <Routers />;
 }
 
 export default App;
