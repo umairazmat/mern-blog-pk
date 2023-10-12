@@ -1,23 +1,12 @@
 import React from "react";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import AddBlogBtn from "../buttons/AddBlogBtn";
 
 const menuItems = [
   {
     name: "Home",
     href: "/",
-  },
-  {
-    name: "Blogs",
-    href: "blogs",
-  },
-  {
-    name: "About",
-    href: "about",
-  },
-  {
-    name: "Users",
-    href: "users",
   },
 ];
 
@@ -65,18 +54,7 @@ export default function Navbar() {
           </ul>
         </div>
         <div className="hidden space-x-2 lg:block">
-          <button
-            type="button"
-            className="rounded-md bg-transparent px-3 py-2 text-sm font-semibold text-black hover:bg-black/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-          >
-            Sign In
-          </button>
-          <button
-            type="button"
-            className="rounded-md border border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-          >
-            Log In
-          </button>
+          <AddBlogBtn btnText="Add Blog" />
         </div>
         <div className="lg:hidden">
           <Menu onClick={toggleMenu} className="h-6 w-6 cursor-pointer" />
@@ -130,24 +108,14 @@ export default function Navbar() {
                   </nav>
                 </div>
                 <div className="mt-2 space-y-2">
-                  <button
-                    type="button"
-                    className="w-full rounded-md border border-black px-3 py-2 text-sm font-semibold text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-                  >
-                    Sign In
-                  </button>
-                  <button
-                    type="button"
-                    className="w-full rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
-                  >
-                    Log In
-                  </button>
+                  <AddBlogBtn btnText="Add Blog" />
                 </div>
               </div>
             </div>
           </div>
         )}
       </div>
+      <hr />
     </div>
   );
 }
