@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "./Card";
-import blogPostJson from "../data/utils";
+import blogPostJson from "../../data/utils";
 
 export default function BlogPostCard() {
   return (

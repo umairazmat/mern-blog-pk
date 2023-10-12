@@ -1,12 +1,12 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Home from "../pages/Home";
-import Blogs from "../pages/Blogs";
-import About from "../pages/About";
-import Users from "../pages/Users";
-import PageNotFound from "../pages/PageNotFound";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import Home from "../pages/home/Home";
+import Blogs from "../pages/blogs/Blogs";
+import About from "../pages/about/About";
+import Users from "../pages/users/Users";
+import PageNotFound from "../pages/page-not-found/PageNotFound";
+import Navbar from "../components/navbar/Navbar";
+import Footer from "../components/footer/Footer";
 
 export default function Routers() {
   return (

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { ArrowUpRight } from "lucide-react";
-import Button from "./Button";
+import Button from "../buttons/Button";
 
 export default function Card({ image, heading, description, tag }) {
   return (

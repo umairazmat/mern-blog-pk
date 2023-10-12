@@ -1,5 +1,5 @@
 import React from "react";
-import BlogPostCard from "../components/BlogPostCard";
+import BlogPostCard from "../../components/cards/BlogPostCard";
 
 export default function Blogs() {
   return (
