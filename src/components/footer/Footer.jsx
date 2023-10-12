@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <section className="relative overflow-hidden bg-white py-8">
-      <div className="container relative z-10 mx-auto px-4">
+    <section className="relative overflow-hidden bg-white py-8 ">
+      <hr />
+      <div className="container relative z-10 mx-auto px-4 mt-4">
         <div className="-m-8 flex flex-wrap items-center justify-between">
           <div className="w-auto p-8">
             <Link to="/" className="inline-flex items-center">
@@ -26,40 +27,9 @@ export default function Footer() {
             </Link>
           </div>
           <div className="w-auto p-8">
-            <ul className="-m-5 flex flex-wrap items-center">
-              <li className="p-5">
-                <Link
-                  to="/"
-                  className="font-medium text-gray-600 hover:text-gray-700"
-                >
-                  Home
-                </Link>
-              </li>
-              <li className="p-5">
-                <Link
-                  to="blogs"
-                  className="font-medium text-gray-600 hover:text-gray-700"
-                >
-                  Blog
-                </Link>
-              </li>
-              <li className="p-5">
-                <Link
-                  to="about"
-                  className="font-medium text-gray-600 hover:text-gray-700"
-                >
-                  About
-                </Link>
-              </li>
-              <li className="p-5">
-                <Link
-                  to="users"
-                  className="font-medium text-gray-600 hover:text-gray-700"
-                >
-                  Users
-                </Link>
-              </li>
-            </ul>
+            <h6>
+              @Copyright Designed by <b>Umair Azmat</b> 2023{" "}
+            </h6>
           </div>
           <div className="w-auto p-8">
             <div className="-m-1.5 flex flex-wrap">
