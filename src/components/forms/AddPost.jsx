@@ -1,11 +1,29 @@
 import React, { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import TagsInput from "react-tagsinput";
+import "react-tagsinput/react-tagsinput.css";
 
 export default function AddPost() {
   const [title, setTitle] = useState("");
-  const [tags, setTags] = useState("");
   const [editorValue, setEditorValue] = useState("");
+  const [tags, setTags] = useState([]);
+
+  const handleChange = (newTags) => {
+    setTags(newTags);
+  };
+
+  const renderData = () => {
+    return (
+      <div>
+        <h1>Title: {title}</h1>
+        Description:
+        {/* eslint-disable-next-line */}
+        <div dangerouslySetInnerHTML={{ __html: editorValue }} />
+        <p>Tags: {tags.join(",")} </p>
+      </div>
+    );
+  };
 
   return (
     <div className="container">
@@ -32,7 +50,7 @@ export default function AddPost() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6" action="">
             {/* Blog Title */}
             <div>
               <label
@@ -83,25 +101,13 @@ export default function AddPost() {
                 theme="snow"
               />
             </div>
-
-            {/* Blog Tag */}
-            <div>
-              <label
-                htmlFor="tags"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Blog Tag
-                <input
-                  id="tags"
-                  name="tags"
-                  type="text"
-                  autoComplete="tags"
-                  required=""
-                  value={tags}
-                  onChange={(e) => setTags(e.target.value)}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </label>
+            {/* Blog Multiple tags */}
+            <div className="container">
+              <TagsInput
+                placeholder="Enter Tags"
+                value={tags}
+                onChange={handleChange}
+              />
             </div>
             {/* Blog BTN */}
             <div>
@@ -113,6 +119,7 @@ export default function AddPost() {
               </button>
             </div>
           </form>
+          {renderData()}
         </div>
       </div>
     </div>
