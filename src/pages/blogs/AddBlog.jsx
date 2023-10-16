@@ -1,10 +1,6 @@
 import React from "react";
+import AddPost from "../../components/forms/AddPost";
 
 export default function AddBlog() {
-  return (
-    <>
-      <h1>AddBlog</h1>
-      <h6>Add Blog Form Coming Soon ..</h6>
-    </>
-  );
+  return <AddPost />;
 }
