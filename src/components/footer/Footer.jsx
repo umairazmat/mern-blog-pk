@@ -52,7 +52,7 @@ export default function Footer() {
                 </Link>
               </div>
               <div className="w-auto p-1.5">
-                <Link to="https://www.instagram.com">
+                <Link to="https://www.twitter.com">
                   <div className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 hover:border-gray-400">
                     <svg
                       width="14"
@@ -70,7 +70,7 @@ export default function Footer() {
                 </Link>
               </div>
               <div className="w-auto p-1.5">
-                <Link to="https://www.twitter.com">
+                <Link to="https://www.instagram.com">
                   <div className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-300 hover:border-gray-400">
                     <svg
                       width="16"
