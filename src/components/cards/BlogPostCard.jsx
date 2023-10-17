@@ -12,7 +12,7 @@ export default function BlogPostCard() {
               image={post.image}
               heading={post.heading}
               description={post.description}
-              tag={post.tag}
+              tags={post.tags}
             />
           </div>
         ))}

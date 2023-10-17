@@ -25,6 +25,24 @@ export default function AddPost() {
     );
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = {
+      title,
+      description: editorValue,
+      tags,
+    };
+
+    const formDataJSON = JSON.stringify(formData);
+
+    localStorage.setItem("formData.json", formDataJSON);
+
+    setTitle("");
+    setEditorValue("");
+    setTags([]);
+  };
+
   return (
     <div className="container">
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -50,7 +68,7 @@ export default function AddPost() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="">
+          <form className="space-y-6" action="" onSubmit={handleSubmit}>
             {/* Blog Title */}
             <div>
               <label

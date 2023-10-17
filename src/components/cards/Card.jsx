@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { ArrowUpRight } from "lucide-react";
 
-export default function Card({ image, heading, description, tag }) {
+export default function Card({ image, heading, description, tags }) {
   return (
     <div className="w-[420px] rounded-md border shadow-2xl p-3">
       <img
@@ -15,9 +15,15 @@ export default function Card({ image, heading, description, tag }) {
           {heading} &nbsp; <ArrowUpRight className="h-4 w-4" />
         </h1>
         <div className="mt-4">
-          <span className="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[10px] font-semibold text-gray-900">
-            {tag}
-          </span>
+          {tags.map((tag) => (
+            <span
+              key={tag}
+              className="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[10px] font-semibold text-gray-900"
+            >
+              {tag}
+            </span>
+          ))}
+
           <p className="mt-3 text-sm text-gray-900">{description}</p>
         </div>
       </div>
@@ -29,5 +35,5 @@ Card.propTypes = {
   image: PropTypes.string.isRequired,
   heading: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  tag: PropTypes.string.isRequired,
+  tags: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
