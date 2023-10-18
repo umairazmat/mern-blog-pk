@@ -3,6 +3,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import TagsInput from "react-tagsinput";
 import "react-tagsinput/react-tagsinput.css";
+import blogData from "../../data/blogData.json";
 
 export default function AddPost() {
   const [title, setTitle] = useState("");
@@ -33,9 +34,16 @@ export default function AddPost() {
       description: editorValue,
       tags,
     };
+    // eslint-disable-next-line
+    console.log(formData);
+    // eslint-disable-next-line
+    console.log(blogData);
+
+    const updatedBlogData = [...blogData, formData];
+    // eslint-disable-next-line
+    console.log(updatedBlogData);
 
     const formDataJSON = JSON.stringify(formData);
-
     localStorage.setItem("formData.json", formDataJSON);
 
     setTitle("");
