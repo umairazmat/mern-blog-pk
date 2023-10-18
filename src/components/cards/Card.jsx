@@ -11,20 +11,22 @@ export default function Card({ image, heading, description, tags }) {
         className="h-[200px] w-full rounded-t-md object-cover"
       />
       <div className="p-4">
-        <h1 className="inline-flex items-center text-lg font-semibold">
+        <h1 className="inline-flex items-center text-lg font-bold">
           {heading} &nbsp; <ArrowUpRight className="h-4 w-4" />
         </h1>
         <div className="mt-4">
           {tags.map((tag) => (
             <span
               key={tag}
-              className="mb-2 mr-2 inline-block rounded-full bg-gray-100 px-3 py-1 text-[10px] font-semibold text-gray-900"
+              className="mb-2 mr-2 p-2 inline-block rounded-full bg-gray-100   text-[10px] font-semibold text-gray-900"
             >
               {tag}
             </span>
           ))}
 
-          <p className="mt-3 text-sm text-gray-900">{description}</p>
+          <p className="mt-3 text-sm text-gray-900 font-semibold">
+            {description}
+          </p>
         </div>
       </div>
     </div>
