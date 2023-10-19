@@ -4,19 +4,29 @@ import "react-quill/dist/quill.snow.css";
 import TagsInput from "react-tagsinput";
 import "react-tagsinput/react-tagsinput.css";
 import blogData from "../../data/blogData.json";
+import { useBlogDispatch } from "../../context/PostsContext";
 
 export default function AddPost() {
+  const nextId = 2;
+
   const [title, setTitle] = useState("");
   const [editorValue, setEditorValue] = useState("");
   const [tags, setTags] = useState([]);
+  const [file, setFile] = useState(null);
+  const dispatch = useBlogDispatch();
 
   const handleChange = (newTags) => {
     setTags(newTags);
   };
 
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+  };
   const renderData = () => {
     return (
       <div>
+        <h1>File: {file?.fileLink}</h1>
         <h1>Title: {title}</h1>
         Description:
         {/* eslint-disable-next-line */}
@@ -29,11 +39,22 @@ export default function AddPost() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    dispatch({
+      type: "added",
+      id: nextId + 1,
+      file,
+      title,
+      description: editorValue,
+      tags,
+    });
+
     const formData = {
+      file,
       title,
       description: editorValue,
       tags,
     };
+
     // eslint-disable-next-line
     console.log(formData);
     // eslint-disable-next-line
@@ -46,6 +67,7 @@ export default function AddPost() {
     const formDataJSON = JSON.stringify(formData);
     localStorage.setItem("formData.json", formDataJSON);
 
+    setFile(null);
     setTitle("");
     setEditorValue("");
     setTags([]);
@@ -85,11 +107,11 @@ export default function AddPost() {
               >
                 Post Title
                 <input
+                  required
                   id="title"
                   name="title"
                   type="text"
                   autoComplete="title"
-                  required=""
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -102,6 +124,7 @@ export default function AddPost() {
                 Post Description
               </h6>
               <ReactQuill
+                required
                 id="description"
                 name="description"
                 value={editorValue}
@@ -127,9 +150,37 @@ export default function AddPost() {
                 theme="snow"
               />
             </div>
+            {/* Blog Image  */}
+            {/* New file upload section */}
+            <div className="mt-6">
+              <label
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                htmlFor="file_input"
+              >
+                Upload file
+                <input
+                  required
+                  id="file_input"
+                  name="file_input"
+                  className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                  aria-describedby="file_input_help"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                />
+              </label>
+              <p
+                className="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                id="file_input_help"
+              >
+                SVG, PNG, JPG or GIF (MAX. 800x400px).
+              </p>
+            </div>
+
             {/* Blog Multiple tags */}
             <div className="container">
               <TagsInput
+                required
                 placeholder="Enter Tags"
                 value={tags}
                 onChange={handleChange}

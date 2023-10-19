@@ -1,13 +1,19 @@
 import React from "react";
-import blogData from "../../data/blogData.json";
+import { useBlogs } from "../../context/PostsContext";
+// import blogData from "../../data/blogData.json";
 import Card from "../cards/Card";
 
-export default function DisplayData() {
+export default function PostList() {
   // eslint-disable-next-line
   // console.log(blogData);
+  const blogs = useBlogs();
+  if (!blogs) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
-      {blogData.map((post) => (
+      {blogs.map((post) => (
         <div className="" key={post.id}>
           <Card
             image={post.image}
