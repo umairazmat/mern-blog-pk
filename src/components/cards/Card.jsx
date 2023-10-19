@@ -2,17 +2,17 @@ import React from "react";
 import PropTypes from "prop-types";
 import { ArrowUpRight } from "lucide-react";
 
-export default function Card({ image, heading, description, tags }) {
+export default function Card({ image, title, description, tags }) {
   return (
     <div className="w-[420px] rounded-md border shadow-2xl p-3">
       <img
         src={image}
-        alt={heading}
+        alt={title}
         className="h-[200px] w-full rounded-t-md object-cover"
       />
       <div className="p-4">
         <h1 className="inline-flex items-center text-lg font-bold">
-          {heading} &nbsp; <ArrowUpRight className="h-4 w-4" />
+          {title} &nbsp; <ArrowUpRight className="h-4 w-4" />
         </h1>
         <div className="mt-4">
           {tags.map((tag) => (
@@ -35,7 +35,7 @@ export default function Card({ image, heading, description, tags }) {
 
 Card.propTypes = {
   image: PropTypes.string.isRequired,
-  heading: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

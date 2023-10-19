@@ -11,7 +11,7 @@ export default function DisplayData() {
         <div className="" key={post.id}>
           <Card
             image={post.image}
-            heading={post.heading}
+            title={post.title}
             description={post.description}
             tags={post.tags}
           />
