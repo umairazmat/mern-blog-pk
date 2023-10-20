@@ -1,16 +1,10 @@
 import React from "react";
-import { useBlogs } from "../../context/PostsContext";
 // import blogData from "../../data/blogData.json";
 import Card from "../cards/Card";
+import { useBlogs } from "../../context/PostsContext";
 
 export default function PostList() {
-  // eslint-disable-next-line
-  // console.log(blogData);
   const blogs = useBlogs();
-  if (!blogs) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div>
       {blogs.map((post) => (
