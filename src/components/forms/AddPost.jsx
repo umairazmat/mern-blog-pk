@@ -7,12 +7,13 @@ import blogData from "../../data/blogData.json";
 import { useBlogDispatch } from "../../context/PostsContext";
 
 export default function AddPost() {
-  const nextId = 2;
+  const nextId = 3;
 
   const [title, setTitle] = useState("");
   const [editorValue, setEditorValue] = useState("");
   const [tags, setTags] = useState([]);
   const [file, setFile] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
   const dispatch = useBlogDispatch();
 
   const handleChange = (newTags) => {
@@ -21,12 +22,19 @@ export default function AddPost() {
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
-    setFile(selectedFile);
+    if (selectedFile) {
+      // Read the selected file and set the URL
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setImageUrl(event.target.result);
+      };
+      reader.readAsDataURL(selectedFile);
+    }
   };
   const renderData = () => {
     return (
       <div>
-        <h1>File: {file?.fileLink}</h1>
+        <h1>File: {imageUrl && <img src={imageUrl} alt="Selected pic" />}</h1>
         <h1>Title: {title}</h1>
         Description:
         {/* eslint-disable-next-line */}
@@ -49,7 +57,8 @@ export default function AddPost() {
     });
 
     const formData = {
-      file,
+      id: nextId + 1,
+      file: imageUrl,
       title,
       description: editorValue,
       tags,
@@ -63,6 +72,9 @@ export default function AddPost() {
     const updatedBlogData = [...blogData, formData];
     // eslint-disable-next-line
     console.log(updatedBlogData);
+
+    const updatedBlogDataJSON = JSON.stringify(updatedBlogData);
+    localStorage.setItem("updatedBlogData.json", updatedBlogDataJSON);
 
     const formDataJSON = JSON.stringify(formData);
     localStorage.setItem("formData.json", formDataJSON);
