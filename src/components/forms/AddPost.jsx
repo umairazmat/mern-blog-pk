@@ -3,18 +3,22 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import TagsInput from "react-tagsinput";
 import "react-tagsinput/react-tagsinput.css";
-import blogData from "../../data/blogData.json";
-import { useBlogDispatch } from "../../context/PostsContext";
+// import blogData from "../../data/blogData.json";
+import { v4 as uuidv4 } from "uuid";
+import { useBlogDispatch, useBlogs } from "../../context/PostsContext";
 
 export default function AddPost() {
-  const nextId = 3;
+  const blogs = useBlogs();
+  const dispatch = useBlogDispatch();
+  // eslint-disable-next-line
+  console.log(blogs);
 
   const [title, setTitle] = useState("");
   const [editorValue, setEditorValue] = useState("");
   const [tags, setTags] = useState([]);
   const [file, setFile] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
-  const dispatch = useBlogDispatch();
+  // const dispatch = useBlogDispatch();
 
   const handleChange = (newTags) => {
     setTags(newTags);
@@ -26,11 +30,13 @@ export default function AddPost() {
       // Read the selected file and set the URL
       const reader = new FileReader();
       reader.onload = (event) => {
-        setImageUrl(event.target.result);
+        setImageUrl(event.target.result); // Set the imageUrl state
+        setFile(event.target.result); // Set the file state with the image URL
       };
       reader.readAsDataURL(selectedFile);
     }
   };
+
   const renderData = () => {
     return (
       <div>
@@ -44,46 +50,78 @@ export default function AddPost() {
     );
   };
 
-  const handleSubmit = (e) => {
+  const onAdd = (e) => {
     e.preventDefault();
-
-    dispatch({
-      type: "added",
-      id: nextId + 1,
+    const newId = uuidv4();
+    const newBlog = {
+      id: newId,
       file,
-      title,
-      description: editorValue,
-      tags,
-    });
-
-    const formData = {
-      id: nextId + 1,
-      file: imageUrl,
       title,
       description: editorValue,
       tags,
     };
 
     // eslint-disable-next-line
-    console.log(formData);
+    console.log(blogs);
     // eslint-disable-next-line
-    console.log(blogData);
+    console.log(newBlog);
 
-    const updatedBlogData = [...blogData, formData];
-    // eslint-disable-next-line
-    console.log(updatedBlogData);
+    // Retrieve the existing blogs from localStorage
+    const existingBlogsJSON = localStorage.getItem("blogData");
+    const existingBlogs = existingBlogsJSON
+      ? JSON.parse(existingBlogsJSON)
+      : [];
 
-    const updatedBlogDataJSON = JSON.stringify(updatedBlogData);
-    localStorage.setItem("updatedBlogData.json", updatedBlogDataJSON);
-
-    const formDataJSON = JSON.stringify(formData);
-    localStorage.setItem("formData.json", formDataJSON);
+    // Add the new blog to the existing blogs
+    const updatedBlogs = [...existingBlogs, newBlog];
+    const updatedBlogsJSON = JSON.stringify(updatedBlogs);
+    localStorage.setItem("blogData", updatedBlogsJSON);
 
     setFile(null);
     setTitle("");
     setEditorValue("");
     setTags([]);
+    setImageUrl("");
+    dispatch({ type: "added", ...newBlog });
   };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const newId = uuidv4();
+
+  //   const formData = {
+  //     id: newId,
+  //     file,
+  //     title,
+  //     description: editorValue,
+  //     tags,
+  //   };
+
+  //   dispatch({
+  //     type: "added",
+  //     ...formData,
+  //   });
+
+  //   // eslint-disable-next-line
+  //   console.log(blogs);
+  //   // eslint-disable-next-line
+  //   console.log(formData);
+
+  //   const updatedBlogData = [...blogs, formData];
+  //   // eslint-disable-next-line
+  //   console.log(updatedBlogData);
+
+  //   const updatedBlogDataJSON = JSON.stringify(updatedBlogData);
+  //   localStorage.setItem("updatedBlogData.json", updatedBlogDataJSON);
+
+  //   const formDataJSON = JSON.stringify(formData);
+  //   localStorage.setItem("formData.json", formDataJSON);
+
+  //   setFile(null);
+  //   setTitle("");
+  //   setEditorValue("");
+  //   setTags([]);
+  // };
 
   return (
     <div className="container">
@@ -110,7 +148,7 @@ export default function AddPost() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="" onSubmit={handleSubmit}>
+          <form className="space-y-6" action="">
             {/* Blog Title */}
             <div>
               <label
@@ -199,14 +237,13 @@ export default function AddPost() {
               />
             </div>
             {/* Blog BTN */}
-            <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:border-none hover:bg-white hover:text-black focus-visible:border-solid focus-visible:outline-black focus-visible:text-black "
-              >
-                Add Blog
-              </button>
-            </div>
+            <button
+              type="button"
+              className="flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:border-none hover:bg-white hover:text-black focus-visible:border-solid focus-visible:outline-black focus-visible:text-black "
+              onClick={onAdd}
+            >
+              Add
+            </button>
           </form>
           {renderData()}
         </div>
