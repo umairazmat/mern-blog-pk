@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { ArrowUpRight } from "lucide-react";
+import parse from "html-react-parser";
 
 export default function Card({ image, title, description, tags }) {
   return (
@@ -26,7 +27,7 @@ export default function Card({ image, title, description, tags }) {
 
           <p className="mt-3 text-sm text-gray-900 font-semibold">
             {/* Display only few words description  in card properly but all data to detail  */}
-            {description}
+            {parse(description.substring(0, 100))}
           </p>
         </div>
       </div>

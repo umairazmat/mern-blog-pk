@@ -11,7 +11,7 @@ export default function AddPost() {
   const blogs = useBlogs();
   const dispatch = useBlogDispatch();
   // eslint-disable-next-line
-  console.log(blogs);
+  // console.log(blogs);
 
   const [title, setTitle] = useState("");
   const [editorValue, setEditorValue] = useState("");
@@ -49,6 +49,8 @@ export default function AddPost() {
       </div>
     );
   };
+  // eslint-disable-next-line
+  console.log(editorValue);
 
   const onAdd = (e) => {
     e.preventDefault();
