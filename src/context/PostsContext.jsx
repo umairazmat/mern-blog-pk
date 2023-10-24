@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer, useEffect } from "react";
 import PropTypes from "prop-types";
 
 const BlogContext = createContext(null);
@@ -52,35 +52,13 @@ function blogReducer(blogs, action) {
   }
 }
 
-const initialBlogs = [
-  {
-    id: 1,
-    file: "https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGJsb2d8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
-    title: "Coming From Context",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, debitis?",
-    tags: ["#Iphone", "#Macbook", "#Watch"],
-  },
-  {
-    id: 2,
-    file: "https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGJsb2d8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
-    title: "Coming From Context",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, debitis?",
-    tags: ["#Iphone", "#Macbook", "#Watch"],
-  },
-  {
-    id: 3,
-    file: "https://images.unsplash.com/photo-1522199755839-a2bacb67c546?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGJsb2d8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
-    title: "Coming From Context",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, debitis?",
-    tags: ["#Iphone", "#Macbook", "#Watch"],
-  },
-];
-
 export default function BlogProvider({ children }) {
+  const storedBlogsJSON = localStorage.getItem("blogData");
+  const initialBlogs = storedBlogsJSON ? JSON.parse(storedBlogsJSON) : [];
   const [blogs, dispatch] = useReducer(blogReducer, initialBlogs);
+  useEffect(() => {
+    localStorage.setItem("blogData", JSON.stringify(blogs));
+  }, [blogs]);
 
   return (
     <BlogContext.Provider value={blogs}>

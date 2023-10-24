@@ -21,7 +21,7 @@ export default function PostList() {
       <div className="grid gap-x-0 gap-y-10 py-6 md:grid-cols-2 lg:grid-cols-3">
         {blogs.map((post) => (
           <div className="" key={post.id}>
-            <Link to="blog-details">
+            <Link to={`blog-details/${post.id}:${post.title}`}>
               <Card
                 image={post.file}
                 title={post.title}

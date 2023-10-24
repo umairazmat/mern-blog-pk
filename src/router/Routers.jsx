@@ -17,7 +17,7 @@ export default function Routers() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="add-blog" element={<AddBlog />} />
-          <Route path="blog-details" element={<BlogDetails />} />
+          <Route path="/blog-details/:id:title" element={<BlogDetails />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </main>
