@@ -6,11 +6,13 @@ import "react-tagsinput/react-tagsinput.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 import { useBlogDispatch, useBlogs } from "../../context/PostsContext";
 
 export default function AddPost() {
   const blogs = useBlogs();
   const dispatch = useBlogDispatch();
+  const navigate = useNavigate();
 
   const showToastMessage = () => {
     toast.success("Success Notification !", {
@@ -91,8 +93,13 @@ export default function AddPost() {
     setEditorValue("");
     setTags([]);
     setImageUrl("");
+
     dispatch({ type: "added", ...newBlog });
+
     showToastMessage();
+    setTimeout(() => {
+      navigate("/");
+    }, 2500);
   };
 
   // const handleSubmit = (e) => {
