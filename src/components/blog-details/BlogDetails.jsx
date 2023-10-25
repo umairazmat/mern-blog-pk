@@ -4,17 +4,19 @@ import { useParams } from "react-router-dom";
 import parse from "html-react-parser";
 
 export default function BlogDetails() {
-  const { id } = useParams();
+  const { title } = useParams();
+  // eslint-disable-next-line
+  console.log(title);
   const [post, setPost] = useState(null);
 
   useEffect(() => {
     // Ensure id is defined before attempting to retrieve data
-    if (id) {
+    if (title) {
       const storedBlogs = localStorage.getItem("blogData");
       if (storedBlogs) {
         const parsedBlogs = JSON.parse(storedBlogs);
         const foundPost = parsedBlogs.find(
-          (blog) => blog.id === id.split(":")[0],
+          (blog) => blog.title === title.replaceAll("-", " "),
         );
 
         if (foundPost) {
@@ -22,7 +24,7 @@ export default function BlogDetails() {
         }
       }
     }
-  }, [id]);
+  }, [title]);
 
   // eslint-disable-next-line
   console.log(post);
@@ -52,7 +54,7 @@ export default function BlogDetails() {
           }}
         />
         <div className="flex flex-col justify-center absolute bottom-0 left-0 z-20 w-full h-full text-center">
-          <h2 className="text-4xl font-semibold text-white leading-tight">
+          <h2 className="text-4xl font-semibold text-white leading-tight p-5">
             {post?.title}
           </h2>
           <div className="mt-4 text-white">User Details</div>

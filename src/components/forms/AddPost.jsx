@@ -64,6 +64,9 @@ export default function AddPost() {
     };
 
     // eslint-disable-next-line
+    console.log(newBlog.title.replaceAll(" ", "-"));
+
+    // eslint-disable-next-line
     console.log(blogs);
     // eslint-disable-next-line
     console.log(newBlog);
