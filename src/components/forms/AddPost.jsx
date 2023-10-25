@@ -3,22 +3,26 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import TagsInput from "react-tagsinput";
 import "react-tagsinput/react-tagsinput.css";
-// import blogData from "../../data/blogData.json";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { v4 as uuidv4 } from "uuid";
 import { useBlogDispatch, useBlogs } from "../../context/PostsContext";
 
 export default function AddPost() {
   const blogs = useBlogs();
   const dispatch = useBlogDispatch();
-  // eslint-disable-next-line
-  // console.log(blogs);
+
+  const showToastMessage = () => {
+    toast.success("Success Notification !", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+  };
 
   const [title, setTitle] = useState("");
   const [editorValue, setEditorValue] = useState("");
   const [tags, setTags] = useState([]);
   const [file, setFile] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
-  // const dispatch = useBlogDispatch();
 
   const handleChange = (newTags) => {
     setTags(newTags);
@@ -88,6 +92,7 @@ export default function AddPost() {
     setTags([]);
     setImageUrl("");
     dispatch({ type: "added", ...newBlog });
+    showToastMessage();
   };
 
   // const handleSubmit = (e) => {
@@ -242,13 +247,16 @@ export default function AddPost() {
               />
             </div>
             {/* Blog BTN */}
-            <button
-              type="button"
-              className="flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:border-none hover:bg-white hover:text-black focus-visible:border-solid focus-visible:outline-black focus-visible:text-black "
-              onClick={onAdd}
-            >
-              Add
-            </button>
+            <div>
+              <button
+                type="button"
+                className="flex w-full justify-center rounded-md bg-black px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:border-none hover:bg-white hover:text-black focus-visible:border-solid focus-visible:outline-black focus-visible:text-black "
+                onClick={onAdd}
+              >
+                Add
+              </button>
+              <ToastContainer />
+            </div>
           </form>
           {renderData()}
         </div>
